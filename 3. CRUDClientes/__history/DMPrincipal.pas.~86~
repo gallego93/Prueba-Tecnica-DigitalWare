@@ -1,0 +1,168 @@
+unit DMPrincipal;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DBXMySQL, Data.FMTBcd, Data.DB,
+  Datasnap.DBClient, Data.SqlExpr, Datasnap.Provider;
+
+type
+  TDataModule2 = class(TDataModule)
+    SQLConnection1: TSQLConnection;
+    QClients: TSQLQuery;
+    CDSClients: TClientDataSet;
+    DSClients: TDataSource;
+    QClientsnombre_cliente: TStringField;
+    QClientsdireccion: TStringField;
+    CDSClientscliente: TIntegerField;
+    CDSClientsnombre_cliente: TStringField;
+    CDSClientsdireccion: TStringField;
+    QClientscliente: TIntegerField;
+    QProducts: TSQLQuery;
+    CDSProducts: TClientDataSet;
+    DSProducts: TDataSource;
+    QCabezaFactura: TSQLQuery;
+    CDSCabezaFactura: TClientDataSet;
+    DSCabezaFactura: TDataSource;
+    QDetalleFactura: TSQLQuery;
+    CDSDetalleFactura: TClientDataSet;
+    DSDetalleFactura: TDataSource;
+    CDSCabezaFacturafecha: TDateTimeField;
+    CDSCabezaFacturacliente: TIntegerField;
+    CDSDetalleFacturanumero: TIntegerField;
+    CDSDetalleFacturaproducto: TIntegerField;
+    CDSDetalleFacturavalor: TFloatField;
+    CDSDetalleFacturacantidad: TFloatField;
+    QCabezaFacturafecha: TSQLTimeStampField;
+    QCabezaFacturacliente: TIntegerField;
+    CDSCabezaFacturatotal: TFloatField;
+    QDetalleFacturanumero: TIntegerField;
+    QDetalleFacturaproducto: TIntegerField;
+    QDetalleFacturacantidad: TStringField;
+    QDetalleFacturavalor: TFloatField;
+    DSPClients: TDataSetProvider;
+    DSPProducts: TDataSetProvider;
+    QFactura: TSQLQuery;
+    DSPFactura: TDataSetProvider;
+    CDSFactura: TClientDataSet;
+    DSFactura: TDataSource;
+    QFacturafecha: TSQLTimeStampField;
+    QFacturacliente: TIntegerField;
+    CDSFacturafecha: TSQLTimeStampField;
+    CDSFacturacliente: TIntegerField;
+    QCabezaFacturanumero: TIntegerField;
+    CDSCabezaFacturanumero: TIntegerField;
+    QFacturanumero: TIntegerField;
+    CDSFacturanumero: TIntegerField;
+    QCabezaFacturatotal: TSingleField;
+    QFacturatotal: TSingleField;
+    CDSFacturatotal: TSingleField;
+    QProductsproducto: TIntegerField;
+    QProductsnombre_producto: TStringField;
+    CDSProductsproducto: TIntegerField;
+    CDSProductsnombre_producto: TStringField;
+    QProductsvalor: TSingleField;
+    CDSProductsvalor: TSingleField;
+    procedure CDSDetalleFacturaAfterPost(DataSet: TDataSet);
+    procedure CDSDetalleFacturaBeforePost(DataSet: TDataSet);
+    procedure CDSClientsBeforePost(DataSet: TDataSet);
+    procedure CDSProductsBeforePost(DataSet: TDataSet);
+    procedure CDSDetalleFacturaproductoSetText(Sender: TField;
+      const Text: string);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DataModule2: TDataModule2;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses InvoicesList;
+
+{$R *.dfm}
+
+procedure TDataModule2.CDSClientsBeforePost(DataSet: TDataSet);
+begin
+  if CDSClientsnombre_cliente.Text = '' then
+  begin
+    raise Exception.Create('Debe ingresar un nombre para el cliente.');
+  end;
+  if CDSClientsdireccion.Text = '' then
+  begin
+    raise Exception.Create('Debe ingresar una direccion para el cliente.');
+  end;
+end;
+
+procedure TDataModule2.CDSDetalleFacturaAfterPost(DataSet: TDataSet);
+var
+  total: Extended;
+begin
+  total:=0;
+  CDSDetalleFactura.DisableControls;
+
+  CDSDetalleFactura.First;
+  while not CDSDetalleFactura.Eof do
+  begin
+    total:=total+CDSCabezaFacturatotal.AsFloat;
+    CDSDetalleFactura.Next;
+  end;
+  CDSCabezaFactura.Edit;
+  CDSCabezaFacturatotal.AsFloat := total;
+  CDSDetalleFactura.EnableControls;
+  InvoicesList.FrmInvoices.Edit1.Text := CDSCabezaFacturatotal.AsString;
+end;
+
+procedure TDataModule2.CDSDetalleFacturaBeforePost(DataSet: TDataSet);
+begin
+  CDSCabezaFacturatotal.AsFloat := CDSDetalleFacturacantidad.AsFloat * CDSDetalleFacturavalor.AsFloat;
+
+  if CDSDetalleFacturaproducto.Text = '' then
+  begin
+    raise Exception.Create('Debe seleccionar un producto');
+  end;
+  if CDSDetalleFacturacantidad.Text = '' then
+  begin
+    raise Exception.Create('Debe ingresar la cantidad');
+  end;
+  if (CDSDetalleFacturacantidad.Value = 0) OR (CDSDetalleFacturacantidad.Value < 0)  then
+  begin
+    raise Exception.Create('La cantidad no debe ser igual o menor a cero');
+  end;
+end;
+
+procedure TDataModule2.CDSDetalleFacturaproductoSetText(Sender: TField;
+  const Text: string);
+  var
+  QProductos :TSQLQuery;
+begin
+  QProductos := TSQLQuery.Create(nil);
+  QProductos.SQLConnection := DataModule2.SQLConnection1;
+  QProductos.SQL.Clear;
+  QProductos.SQL.Add('SELECT producto, valor FROM productos');
+  QProductos.SQL.Add('WHERE producto = :producto');
+  QProductos.ParamByName('producto').Value := Text;
+  QProductos.Open;
+
+  CDSDetalleFacturaproducto.Value := QProductos.FieldByName('producto').AsInteger;
+  CDSDetalleFacturavalor.Value := QProductos.FieldByName('valor').AsInteger;
+  QProductos := nil;
+end;
+
+procedure TDataModule2.CDSProductsBeforePost(DataSet: TDataSet);
+begin
+  if CDSProductsnombre_producto.Text = '' then
+  begin
+    raise Exception.Create('Debe ingresar el nombre del producto.');
+  end;
+  if CDSProductsvalor.Text = '' then
+  begin
+    raise Exception.Create('Debe ingresar el valor del producto.');
+  end;
+end;
+
+end.

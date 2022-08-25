@@ -1,0 +1,126 @@
+unit ProductsList;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids, Data.DBXMySQL, Data.FMTBcd,
+  Datasnap.DBClient, Data.SqlExpr, Datasnap.Provider, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TFrmProducts = class(TForm)
+    Panel1: TPanel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    DBGrid1: TDBGrid;
+    Button6: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmProducts: TFrmProducts;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPrincipal;
+
+procedure TFrmProducts.Button1Click(Sender: TObject);
+begin
+  DataModule2.DSProducts.DataSet.Refresh;
+  Button2.Enabled := true;
+  Button3.Enabled := true;
+  Button4.Enabled := true;
+end;
+
+procedure TFrmProducts.Button2Click(Sender: TObject);
+var
+  QProductInsert: TSQLQuery;
+begin
+  QProductInsert := TSQLQuery.Create(nil);
+  QProductInsert.SQLConnection := DataModule2.SQLConnection1;
+  QProductInsert.Close;
+  QProductInsert.SQL.Clear;
+  QProductInsert.SQL.Add('INSERT INTO productos(nombre_producto, valor)');
+  QProductInsert.SQL.Add('VALUES(:nombre_producto, :valor)');
+  QProductInsert.ParamByName('nombre_producto').AsString := DataModule2.CDSProductsnombre_producto.AsString;
+  QProductInsert.ParamByName('valor').AsFloat := DataModule2.CDSProductsvalor.AsFloat;
+  QProductInsert.ExecSQL;
+  ShowMessage('Registro creado exitosamente.!');
+  Button2.Enabled := false;
+end;
+
+procedure TFrmProducts.Button3Click(Sender: TObject);
+var
+  QProductUpdate : TSQLQuery;
+begin
+  QProductUpdate := TSQLQuery.Create(nil);
+  QProductUpdate.SQLConnection := DataModule2.SQLConnection1;
+  QProductUpdate.Close;
+  QProductUpdate.SQL.Clear;
+  QProductUpdate.SQL.Add('UPDATE productos SET nombre_producto = :nombre_producto, valor = :valor');
+  QProductUpdate.SQL.Add('WHERE producto = :producto');
+  QProductUpdate.ParamByName('nombre_producto').AsString := DataModule2.CDSProductsnombre_producto.AsString;
+  QProductUpdate.ParamByName('valor').AsFloat := DataModule2.CDSProductsvalor.AsFloat;
+  QProductUpdate.ParamByName('producto').AsInteger := DataModule2.CDSProductsproducto.AsInteger;
+  QProductUpdate.ExecSQL;
+  ShowMessage('Registro modificado exitosamente.!');
+  Button3.Enabled := false;
+end;
+
+procedure TFrmProducts.Button4Click(Sender: TObject);
+var
+  QProductDelete: TSQLQuery;
+begin
+  QProductDelete := TSQLQuery.Create(nil);
+  QProductDelete.SQLConnection := DataModule2.SQLConnection1;
+  QProductDelete.Close;
+  QProductDelete.SQL.Clear;
+  QProductDelete.SQL.Add('DELETE FROM productos');
+  QProductDelete.SQL.Add('WHERE producto = :producto');
+  QProductDelete.ParamByName('producto').AsInteger := DataModule2.CDSProductsproducto.AsInteger;
+  QProductDelete.ExecSQL;
+  ShowMessage('Registr eliminado exitosamente!');
+  Button4.Enabled := false;
+end;
+
+procedure TFrmProducts.Button5Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFrmProducts.Button6Click(Sender: TObject);
+begin
+  DataModule2.CDSProducts.Append;
+end;
+
+procedure TFrmProducts.FormCreate(Sender: TObject);
+begin
+  //DataModule2.CDSProducts.Close;
+  //DataModule2.CDSProducts.Open;
+end;
+
+procedure TFrmProducts.FormShow(Sender: TObject);
+begin
+  DataModule2.CDSProducts.Close;
+  DataModule2.CDSProducts.Open;
+  Button2.Enabled := true;
+  Button3.Enabled := true;
+  Button4.Enabled := true;
+end;
+
+end.

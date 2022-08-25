@@ -1,0 +1,280 @@
+object DataModule2: TDataModule2
+  OldCreateOrder = False
+  Height = 510
+  Width = 471
+  object SQLConnection1: TSQLConnection
+    ConnectionName = 'MySQLConnection'
+    DriverName = 'MySQL'
+    Params.Strings = (
+      'DriverName=MySQL'
+      'HostName=localhost'
+      'Database=crud'
+      'User_Name=root'
+      'Password='
+      'ServerCharSet='
+      'BlobSize=-1'
+      'ErrorResourceFile='
+      'LocaleCode=0000'
+      'Compressed=False'
+      'Encrypted=False'
+      'ConnectTimeout=60')
+    Connected = True
+    Left = 48
+    Top = 8
+  end
+  object QClients: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT * FROM clientes')
+    SQLConnection = SQLConnection1
+    Left = 48
+    Top = 64
+    object QClientscliente: TIntegerField
+      FieldName = 'cliente'
+    end
+    object QClientsnombre_cliente: TStringField
+      FieldName = 'nombre_cliente'
+      Required = True
+      Size = 100
+    end
+    object QClientsdireccion: TStringField
+      FieldName = 'direccion'
+      Required = True
+      Size = 150
+    end
+  end
+  object CDSClients: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPClients'
+    BeforePost = CDSClientsBeforePost
+    Left = 176
+    Top = 64
+    object CDSClientscliente: TIntegerField
+      FieldName = 'cliente'
+    end
+    object CDSClientsnombre_cliente: TStringField
+      FieldName = 'nombre_cliente'
+      Size = 200
+    end
+    object CDSClientsdireccion: TStringField
+      FieldName = 'direccion'
+      Size = 250
+    end
+  end
+  object DSClients: TDataSource
+    DataSet = CDSClients
+    Left = 232
+    Top = 64
+  end
+  object QProducts: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT * FROM productos')
+    SQLConnection = SQLConnection1
+    Left = 48
+    Top = 120
+    object QProductsproducto: TIntegerField
+      FieldName = 'producto'
+    end
+    object QProductsnombre_producto: TStringField
+      FieldName = 'nombre_producto'
+      Required = True
+      Size = 100
+    end
+    object QProductsvalor: TSingleField
+      FieldName = 'valor'
+      Required = True
+    end
+  end
+  object CDSProducts: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPProducts'
+    BeforePost = CDSProductsBeforePost
+    Left = 196
+    Top = 120
+    object CDSProductsproducto: TIntegerField
+      FieldName = 'producto'
+    end
+    object CDSProductsnombre_producto: TStringField
+      FieldName = 'nombre_producto'
+      Required = True
+      Size = 100
+    end
+    object CDSProductsvalor: TSingleField
+      FieldName = 'valor'
+      Required = True
+    end
+  end
+  object DSProducts: TDataSource
+    DataSet = CDSProducts
+    Left = 267
+    Top = 120
+  end
+  object QCabezaFactura: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT * FROM cabeza_factura')
+    SQLConnection = SQLConnection1
+    Left = 48
+    Top = 176
+    object QCabezaFacturanumero: TIntegerField
+      FieldName = 'numero'
+      Required = True
+    end
+    object QCabezaFacturafecha: TSQLTimeStampField
+      FieldName = 'fecha'
+    end
+    object QCabezaFacturacliente: TIntegerField
+      FieldName = 'cliente'
+      Required = True
+    end
+    object QCabezaFacturatotal: TSingleField
+      FieldName = 'total'
+      Required = True
+    end
+  end
+  object CDSCabezaFactura: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 232
+    Top = 176
+    object CDSCabezaFacturanumero: TIntegerField
+      FieldName = 'numero'
+    end
+    object CDSCabezaFacturafecha: TDateTimeField
+      FieldName = 'fecha'
+    end
+    object CDSCabezaFacturacliente: TIntegerField
+      FieldName = 'cliente'
+    end
+    object CDSCabezaFacturatotal: TFloatField
+      FieldName = 'total'
+    end
+  end
+  object DSCabezaFactura: TDataSource
+    DataSet = CDSCabezaFactura
+    Left = 328
+    Top = 176
+  end
+  object QDetalleFactura: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT * FROM detalle_factura')
+    SQLConnection = SQLConnection1
+    Left = 48
+    Top = 232
+    object QDetalleFacturanumero: TIntegerField
+      FieldName = 'numero'
+      Required = True
+    end
+    object QDetalleFacturaproducto: TIntegerField
+      FieldName = 'producto'
+      Required = True
+    end
+    object QDetalleFacturacantidad: TStringField
+      FieldName = 'cantidad'
+      Required = True
+      Size = 50
+    end
+    object QDetalleFacturavalor: TSingleField
+      FieldName = 'valor'
+      Required = True
+    end
+  end
+  object CDSDetalleFactura: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    BeforePost = CDSDetalleFacturaBeforePost
+    AfterPost = CDSDetalleFacturaAfterPost
+    Left = 256
+    Top = 232
+    object CDSDetalleFacturanumero: TIntegerField
+      FieldName = 'numero'
+    end
+    object CDSDetalleFacturaproducto: TIntegerField
+      FieldName = 'producto'
+      OnSetText = CDSDetalleFacturaproductoSetText
+    end
+    object CDSDetalleFacturavalor: TFloatField
+      FieldName = 'valor'
+    end
+    object CDSDetalleFacturacantidad: TFloatField
+      FieldName = 'cantidad'
+    end
+  end
+  object DSDetalleFactura: TDataSource
+    DataSet = CDSDetalleFactura
+    Left = 352
+    Top = 232
+  end
+  object DSPClients: TDataSetProvider
+    DataSet = QClients
+    Left = 112
+    Top = 64
+  end
+  object DSPProducts: TDataSetProvider
+    DataSet = QProducts
+    Left = 112
+    Top = 120
+  end
+  object QFactura: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT * FROM cabeza_factura')
+    SQLConnection = SQLConnection1
+    Left = 48
+    Top = 288
+    object QFacturanumero: TIntegerField
+      FieldName = 'numero'
+    end
+    object QFacturafecha: TSQLTimeStampField
+      FieldName = 'fecha'
+    end
+    object QFacturacliente: TIntegerField
+      FieldName = 'cliente'
+      Required = True
+    end
+    object QFacturatotal: TSingleField
+      FieldName = 'total'
+      Required = True
+    end
+  end
+  object DSPFactura: TDataSetProvider
+    DataSet = QFactura
+    Left = 128
+    Top = 296
+  end
+  object CDSFactura: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPFactura'
+    Left = 224
+    Top = 296
+    object CDSFacturanumero: TIntegerField
+      FieldName = 'numero'
+    end
+    object CDSFacturafecha: TSQLTimeStampField
+      FieldName = 'fecha'
+    end
+    object CDSFacturacliente: TIntegerField
+      FieldName = 'cliente'
+      Required = True
+    end
+    object CDSFacturatotal: TSingleField
+      FieldName = 'total'
+      Required = True
+    end
+  end
+  object DSFactura: TDataSource
+    DataSet = CDSFactura
+    Left = 312
+    Top = 288
+  end
+end

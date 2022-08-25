@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/07/28 11:02:58.000.875,=C:\Users\Desarrollo\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2022/08/02 15:49:13.000.379,=C:\Users\Desarrollo\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2022/08/02 15:49:45.000.485,F:\Mi unidad\Prueba-Tecnica-DigitalWare\1. Serie Fibonacci\FrmSerieFibonacci.pas=C:\Users\Desarrollo\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2022/08/02 15:49:45.000.485,F:\Mi unidad\Prueba-Tecnica-DigitalWare\1. Serie Fibonacci\FrmSerieFibonacci.dfm=C:\Users\Desarrollo\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2022/08/02 15:49:59.000.224,F:\Mi unidad\Prueba-Tecnica-DigitalWare\1. Serie Fibonacci\SerieFibonacci.dproj=C:\Users\Desarrollo\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

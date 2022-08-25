@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/10/19 16:41:12.000.595,=C:\Users\RIO-PC\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/11/02 08:29:08.000.842,=C:\Users\RIO-PC\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/08/10 14:51:47.000.221,=C:\Users\RIO-PC\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/08/10 14:53:49.000.376,=C:\Users\RIO-PC\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2022/08/10 14:54:28.000.626,C:\Users\RIO-PC\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\DMPrincipal.dfm</Transaction>
+    <Transaction>2022/08/10 14:54:28.000.626,C:\Users\RIO-PC\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\DMPrincipal.pas</Transaction>
+    <Transaction>2022/08/10 14:54:35.000.423,C:\Users\RIO-PC\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Menu.pas</Transaction>
+    <Transaction>2022/08/10 14:54:35.000.423,C:\Users\RIO-PC\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Menu.dfm</Transaction>
+    <Transaction>2022/08/10 14:54:45.000.173,C:\Users\RIO-PC\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\CRUDClientes.dproj</Transaction>
+    <Transaction>2022/08/11 08:18:44.000.852,=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Unit2.pas</Transaction>
+    <Transaction>2022/08/11 08:19:44.000.072,C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\ClientsList.dfm=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Unit2.dfm</Transaction>
+    <Transaction>2022/08/11 08:19:44.000.072,C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\ClientsList.pas=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Unit2.pas</Transaction>
+    <Transaction>2022/08/11 08:40:48.000.925,=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Unit1.pas</Transaction>
+    <Transaction>2022/08/11 08:41:50.000.278,C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\ProductsList.dfm=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Unit1.dfm</Transaction>
+    <Transaction>2022/08/11 08:41:50.000.278,C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\ProductsList.pas=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Unit1.pas</Transaction>
+    <Transaction>2022/08/11 08:41:57.000.663,=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Unit1.pas</Transaction>
+    <Transaction>2022/08/11 08:43:01.000.989,C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\InvoicesList.dfm=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Unit1.dfm</Transaction>
+    <Transaction>2022/08/11 08:43:01.000.989,C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\InvoicesList.pas=C:\Users\RIO-PC\Documents\Embarcadero\CRUDClientes\Unit1.pas</Transaction>
+    <Transaction>2022/08/12 12:33:57.000.897,=F:\Mi unidad\Prueba-Tecnica-DigitalWare\3. CRUDClientes\Unit1.pas</Transaction>
+    <Transaction>2022/08/12 12:35:41.000.766,F:\Mi unidad\Prueba-Tecnica-DigitalWare\3. CRUDClientes\Invoices.dfm=F:\Mi unidad\Prueba-Tecnica-DigitalWare\3. CRUDClientes\Unit1.dfm</Transaction>
+    <Transaction>2022/08/12 12:35:41.000.766,F:\Mi unidad\Prueba-Tecnica-DigitalWare\3. CRUDClientes\Invoices.pas=F:\Mi unidad\Prueba-Tecnica-DigitalWare\3. CRUDClientes\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>
